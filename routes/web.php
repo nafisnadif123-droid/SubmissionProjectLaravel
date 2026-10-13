@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProdukController;
+use App\Http\Controllers\MahasiswaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -63,6 +65,15 @@ Route::prefix('petugas')->name('petugas.')->group(function () {
 Route::redirect('/home', '/');
 
 Route::permanentRedirect('/katalog-lama', '/info');
+
+Route::get('/produk', [ProdukController::class, 'index'])->name('produk.index');
+Route::get('/produk/{id}', [ProdukController::class, 'show'])->name('produk.show');
+
+Route::get('/profil', [MahasiswaController::class, 'profil'])->name('mahasiswa.profil');
+
+Route::get('/mahasiswa', [MahasiswaController::class, 'daftar'])->name('mahasiswa.index');
+
+Route::get('/mahasiswa/{nim}', [MahasiswaController::class, 'detail'])->name('mahasiswa.detail');
 
 Route::fallback(function () {
     return response('Maaf, halaman yang Anda cari tidak tersedia.', 404);
